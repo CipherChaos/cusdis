@@ -1,11 +1,8 @@
 import NextAuth from "next-auth";
-import Adapters from "next-auth/adapters";
-import { prisma, resolvedConfig, singletonSync } from "../../../utils.server";
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
+import { prisma, resolvedConfig } from "../../../utils.server";
 import { authProviders } from "../../../config.server";
 import { statService } from "../../../service/stat.service";
-
-// Using Module Augmentation
-// https://next-auth.js.org/getting-started/typescript
 
 declare module "next-auth" {
   interface Session {
@@ -23,36 +20,28 @@ declare module "next-auth/jwt" {
 }
 
 export default NextAuth({
-  // Configure one or more authentication providers
   providers: authProviders,
-
-  adapter: Adapters.Prisma.Adapter({ prisma: prisma }),
-
+  adapter: PrismaAdapter(prisma),
   session: {
-    jwt: !!resolvedConfig.useLocalAuth,
+    strategy: "jwt",
   },
-
-  jwt: {
-    secret: resolvedConfig.jwtSecret,
-  },
-
+  secret: resolvedConfig.jwtSecret,
   callbacks: {
-    session(session, user) {
-      session.uid = user.id
+    async session({ session, token }) {
+      session.uid = token.id as string
       return session
     },
-    jwt(token, user) {
+    async jwt({ token, user }) {
       if (user) {
         token.id = user.id
       }
       return token
     },
-    signIn() {
+    async signIn() {
       statService.capture('signIn')
       return true
     }
   },
-
   events: {
     async error(message) {
       console.log(message)
