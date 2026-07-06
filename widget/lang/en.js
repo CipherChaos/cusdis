@@ -19,4 +19,8 @@ export default {
     'Your comment has been sent. Please wait for approval.',
 
   waiting_for_approval: 'Waiting for approval',
+
+  no_comments: 'No comments yet',
+  load_more_failed: 'Failed to load more comments. Retry?',
+  comments_error: 'Failed to load comments.',
 }
