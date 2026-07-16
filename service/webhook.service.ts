@@ -33,7 +33,7 @@ export class WebhookService extends RequestScopeService {
       },
     })
 
-    if (project.enableWebhook && !comment.moderatorId && project.webhook) {
+    if (project?.enableWebhook && !comment.moderatorId && project?.webhook) {
 
       const fullComment = await prisma.comment.findUnique({
         where: {
@@ -64,19 +64,19 @@ export class WebhookService extends RequestScopeService {
       })
 
       try {
-        await axios.post(project.webhook, {
+        await axios.post(project!.webhook, {
           type: HookType.NewComment,
           data: {
             by_nickname: comment.by_nickname,
             by_email: comment.by_email,
             content: comment.content,
-            page_id: fullComment.page.slug,
-            page_title: fullComment.page.title,
-            project_title: fullComment.page.project.title,
+page_id: fullComment!.page.slug,
+       page_title: fullComment!.page.title,
+       project_title: fullComment!.page.project.title,
             approve_link: approveLink,
           },
         } as HookBody<NewCommentHookData>)
-        console.log('[webhook] sent to', project.webhook)
+        console.log('[webhook] sent to', project!.webhook)
       } catch (e) {
         console.error('[webhook] failed:', e?.message || e)
       }

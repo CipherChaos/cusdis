@@ -79,7 +79,7 @@ function IndexPage({ session }: Props) {
   ) : (
     <Button
       onClick={() =>
-        signIn(null, { callbackUrl: `${location.origin}/dashboard` })
+        signIn(undefined, { callbackUrl: `${location.origin}/dashboard` })
       }
     >
       Start for free

@@ -37,8 +37,8 @@ export class NotificationService extends RequestScopeService {
       },
     })
 
-    // don't notify if disable in project settings
-    if (!project.enableNotification) {
+    // don't notify if project not found or disabled in project settings
+    if (!project?.enableNotification) {
       return
     }
 
@@ -63,17 +63,17 @@ export class NotificationService extends RequestScopeService {
 
     const notificationEmail =
       resolvedConfig.smtp.receiverEmail ||
-      project.owner.notificationEmail ||
-      project.owner.email
+      project!.owner.notificationEmail ||
+      project!.owner.email
 
     if (!notificationEmail) {
       console.warn('[notification] no receiver email configured, skipping notification')
       return
     }
 
-    if (project.owner.enableNewCommentNotification) {
+    if (project!.owner.enableNewCommentNotification) {
       let unsubscribeToken = this.tokenService.genUnsubscribeNewCommentToken(
-        project.owner.id,
+        project!.owner.id,
       )
 
       const approveToken = await this.tokenService.genApproveToken(comment.id)
@@ -81,9 +81,9 @@ export class NotificationService extends RequestScopeService {
       const msg = {
         to: notificationEmail, // Change to your recipient
         from: resolvedConfig.smtp.senderAddress,
-        subject: `New comment on "${fullComment.page.project.title}"`,
-        html: makeNewCommentEmailTemplate({
-          page_slug: fullComment.page.title || fullComment.page.slug,
+subject: `New comment on "${fullComment!.page.project.title}"`,
+      html: makeNewCommentEmailTemplate({
+        page_slug: fullComment!.page.title || fullComment!.page.slug,
           by_nickname: comment.by_nickname,
           approve_link: `${resolvedConfig.host}/open/approve?token=${approveToken}`,
           unsubscribe_link: `${resolvedConfig.host}/api/open/unsubscribe?token=${unsubscribeToken}`,

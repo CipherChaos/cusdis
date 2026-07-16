@@ -158,7 +158,7 @@ export class CommentService extends RequestScopeService {
       },
     })
 
-    return res.page.project
+    return res!.page.project
   }
 
   async addComment(
@@ -213,7 +213,7 @@ export class CommentService extends RequestScopeService {
         by_email: session.user.email,
         by_nickname: session.user.name,
         moderatorId: session.uid,
-        pageId: parent.pageId,
+        pageId: parent!.pageId,
         approved: true,
         parentId,
       },

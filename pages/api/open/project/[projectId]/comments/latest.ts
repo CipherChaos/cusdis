@@ -37,7 +37,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     }
 
     const comments = await projectService.fetchLatestComment(projectId, {
-      from: project.fetchLatestCommentsAt,
+      from: project.fetchLatestCommentsAt ?? undefined,
       markAsRead: true
     })
 

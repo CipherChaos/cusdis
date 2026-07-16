@@ -90,11 +90,11 @@ export default function Page(props: {
   })
 
   const onSaveWebhookUrl = async _ => {
-    const value = webhookInputRef.current.value
+    const value = webhookInputRef.current?.value
 
     const validUrlRegexp = /^https?:/
 
-    if (!validUrlRegexp.exec(value)) {
+    if (!value || !validUrlRegexp.exec(value)) {
       notifications.show({
         title: 'Not a valid http/https URL',
         message: 'Please enter a valid http/https URL',

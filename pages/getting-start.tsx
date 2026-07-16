@@ -21,13 +21,13 @@ function GettingStart() {
 
 
   async function onClickCreateProject() {
-    if (!titleInputRef.current.value) {
+    if (!titleInputRef.current?.value) {
       return
     }
 
     await createProjectMutation.mutate(
       {
-        title: titleInputRef.current.value,
+        title: titleInputRef.current!.value,
       },
       {
         onSuccess(data) {
@@ -36,7 +36,7 @@ function GettingStart() {
             message: "Redirecting to project dashboard",
             color: 'green'
           })
-          router.push(`/dashboard/project/${data.data.id}`, null, {
+          router.push(`/dashboard/project/${data.data.id}`, undefined, {
             shallow: true,
           })
         },
