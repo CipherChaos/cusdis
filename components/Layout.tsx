@@ -349,7 +349,7 @@ export function MainLayout(props: {
             <Stack spacing={8}>
               <Text weight={500} size="sm">Email (for notification)</Text>
               <TextInput placeholder={props.userInfo.email ?? undefined} {...userSettingsForm.register("notificationEmail")} size="sm" />
-              <Switch defaultChecked={props.userInfo.enableNewCommentNotification} onChange={e => {
+              <Switch defaultChecked={props.userInfo.enableNewCommentNotification ?? false} onChange={e => {
                 updateNewCommentNotification.mutate({
                   enableNewCommentNotification: e.target.checked
                 })
