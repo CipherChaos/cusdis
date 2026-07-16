@@ -130,7 +130,7 @@ export default apiHandler()
     )
 
     // send confirm email
-    if (body.acceptNotify === true && body.email) {
+    if (body.acceptNotify === true && body.email && body.pageTitle) {
       try {
         commentService.sendConfirmReplyNotificationEmail(
           body.email,

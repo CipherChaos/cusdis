@@ -340,15 +340,15 @@ export function MainLayout(props: {
           <Stack>
             <Stack spacing={8}>
               <Text weight={500} size="sm">Username</Text>
-              <TextInput defaultValue={props.userInfo.name} size="sm" disabled />
+              <TextInput defaultValue={props.userInfo.name ?? undefined} size="sm" disabled />
             </Stack>
             <Stack spacing={8}>
               <Text weight={500} size="sm">Email (for login)</Text>
-              <TextInput defaultValue={props.userInfo.email} size="sm" disabled />
+              <TextInput defaultValue={props.userInfo.email ?? undefined} size="sm" disabled />
             </Stack>
             <Stack spacing={8}>
               <Text weight={500} size="sm">Email (for notification)</Text>
-              <TextInput placeholder={props.userInfo.email} {...userSettingsForm.register("notificationEmail")} size="sm" />
+              <TextInput placeholder={props.userInfo.email ?? undefined} {...userSettingsForm.register("notificationEmail")} size="sm" />
               <Switch defaultChecked={props.userInfo.enableNewCommentNotification} onChange={e => {
                 updateNewCommentNotification.mutate({
                   enableNewCommentNotification: e.target.checked
@@ -357,7 +357,7 @@ export function MainLayout(props: {
             </Stack>
             <Stack spacing={8}>
               <Text weight={500} size="sm">Display name</Text>
-              <TextInput placeholder={props.userInfo.name} {...userSettingsForm.register("displayName")} size="sm" />
+              <TextInput placeholder={props.userInfo.name ?? undefined} {...userSettingsForm.register("displayName")} size="sm" />
             </Stack>
             {props.config.checkout.enabled && (
               <>
