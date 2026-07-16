@@ -48,6 +48,10 @@ export function MainLayout(props: {
   const clipboard = useClipboard()
   const [isUserPannelOpen, { open: openUserModal, close: closeUserModal }] = useDisclosure(false);
 
+  if (!props.userInfo) {
+    return <>{props.children}</>
+  }
+
   const userSettingsForm = useForm({
     defaultValues: {
       username: props.userInfo.name,

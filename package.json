@@ -44,7 +44,7 @@
     "@sendgrid/mail": "^7.4.2",
     "@sentry/node": "^6.3.1",
     "@sentry/tracing": "^6.3.1",
-    "@supabase/supabase-js": "^2.78.0",
+    "@supabase/supabase-js": "^2.110.7",
     "@sveltejs/vite-plugin-svelte": "^2.5.3",
     "autoprefixer": "^10.2.5",
     "axios": "^0.21.1",
