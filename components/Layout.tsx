@@ -124,8 +124,10 @@ export function MainLayout(props: {
       return
     }
     updateUserSettingsMutation.mutate({
-      displayName: data.displayName,
-      notificationEmail: data.notificationEmail,
+      // react-hook-form infers null from Prisma's `String?` default values;
+      // normalize to undefined to satisfy the mutation's optional-but-not-nullable API.
+      displayName: data.displayName ?? undefined,
+      notificationEmail: data.notificationEmail ?? undefined,
     })
   }
 
