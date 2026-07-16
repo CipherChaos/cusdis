@@ -13,7 +13,7 @@ export const config = {
 
 // Get raw body as string
 async function getRawBody(readable: Readable): Promise<Buffer> {
-  const chunks = [];
+  const chunks: Buffer[] = [];
   for await (const chunk of readable) {
     chunks.push(typeof chunk === 'string' ? Buffer.from(chunk) : chunk);
   }
